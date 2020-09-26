@@ -26,36 +26,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="Product")
+@Table(name="Transaction")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true, ignoreUnknown = true)
-public class Product implements Serializable {
+public class Transaction implements Serializable {
 	
 	@Id @Getter @Setter	
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PRODUCT_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "TRANSACTION_SEQ")
 	@GenericGenerator(
-	        name = "PRODUCT_SEQ", 
+	        name = "TRANSACTION_SEQ", 
 	        strategy = "com.engine.repository.StringPrefixedSequenceIdGenerator", 
 	        parameters = {
 	            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
-	            @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "PRODUCT-"),
+	            @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "TRAN-"),
 	            @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
 	private String id;  
-	
+
+	@Getter @Setter	@Column(name = "product_ID", nullable = false)
+	private String   product_ID;
 	@Getter @Setter	@Column(name = "product_name", nullable = false)
 	private String   product_name;
-	@Getter @Setter	@Column(name = "carton_size", nullable = false)
-	private Integer   carton_size;
-	@Getter @Setter	@Column(name = "carton_price", nullable = false)
-	private Double   carton_price;
-	@Getter @Setter	@Column(name = "compansation", nullable = false)
-	private Double   compansation;
-	@Getter @Setter	@Column(name = "discount_limit", nullable = false)
-	private Integer   discount_limit;
-	@Getter @Setter	@Column(name = "discount", nullable = false)
-	private Double   discount;
-	@Getter @Setter	@Column(name = "no_of_units_purchased", nullable = false)
-	private Integer  no_of_units_purchased;
+	@Getter @Setter	@Column(name = "no_of_units", nullable = false)
+	private Integer   no_of_units;
+	@Getter @Setter	@Column(name = "total_price", nullable = false)
+	private Double   total_price;
 	
 	@Getter @Setter	@Column(name = "created_at", nullable = true, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

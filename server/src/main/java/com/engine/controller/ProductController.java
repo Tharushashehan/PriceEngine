@@ -47,4 +47,13 @@ public class ProductController {
 	public Product delete(@PathVariable(value = "id") String id, @Valid @RequestBody Product product) {
 	    return productServiceImpl.delete(id, product);
 	}
+	
+	@PostMapping("/purchase")
+	public String purchaseCalculator(@Valid @RequestBody List<Product> productLst) {
+		double amount = 0.0;
+		for(int i=0; i<productLst.size(); i++) {
+			amount = amount + ((productLst.get(i).getCarton_price()/productLst.get(i).getCarton_size())*(productLst.get(i).getNo_of_units_purchased()%productLst.get(i).getCarton_size())*productLst.get(i).getCompansation() + (productLst.get(i).getNo_of_units_purchased()/productLst.get(i).getCarton_size())*productLst.get(i).getCarton_price());
+		}
+	    return "{\"total\" : \""+ amount +"\"}";
+	}
 }
