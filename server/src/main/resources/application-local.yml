@@ -1,0 +1,27 @@
+
+spring.datasource:
+  driver: com.mysql.cj.jdbc.Driver
+  url : jdbc:mysql://remotemysql.com:3306/ViRKVcLGSZ?createDatabaseIfNotExist=true  
+  username : ViRKVcLGSZ
+  password : N7KjwRCFpH
+
+## Hibernate Properties
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa:
+  properties.hibernate.dialect : org.hibernate.dialect.MySQL57Dialect #MySQL8Dialect #MySQL55Dialect #MySQL5Dialect #MySQLInnoDBDialect #MySQLMyISAMDialect #MySQL5InnoDBDialect
+  hibernate.ddl-auto : create-drop #update 
+logging.level.org.hibernate:
+  SQL : DEBUG
+  type : TRACE
+  
+#Get Actuatr health
+management:
+  security.enabled : false
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+  
+
+  
